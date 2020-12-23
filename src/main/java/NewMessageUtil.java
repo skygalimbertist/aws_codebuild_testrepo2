@@ -12,4 +12,8 @@ public class NewMessageUtil extends MessageUtil {
 		System.out.println(message);
 		return message;
 	}
+	
+	public static void main(String[] args) {
+		new NewMessageUtil(" This is working :)").salutationMessage();
+	}
 }
