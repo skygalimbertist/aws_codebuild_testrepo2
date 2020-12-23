@@ -1,0 +1,25 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
+    commands:
+      - cp maven-settings.xml ~/.m2/settings.xml
+      - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain demo-domain --domain-owner 156498802103 --query authorizationToken --output text`
+      - export ARTIFACT_ID=`mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout`
+      - export PRJ_VERSION=`mvn help:evaluate -Dexpression=project.version -q -DforceStdout`
+      - echo $ARTIFACT_ID:$PRJ_VERSION
+      - aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 156498802103.dkr.ecr.eu-west-1.amazonaws.com
+  build:
+    commands:
+      - echo Maven build started on `date`
+      - mvn package
+      - echo Docker build started on `date`
+      - docker build -t $ARTIFACT_ID:$PRJ_VERSION --build-arg externalVersion=$ARTIFACT_ID-$PRJ_VERSION.jar .
+      - docker tag $ARTIFACT_ID:$PRJ_VERSION 156498802103.dkr.ecr.eu-west-1.amazonaws.com/$ARTIFACT_ID:$PRJ_VERSION      
+  post_build:
+    commands:
+      - echo Pushing the Docker image...
+      - docker push 156498802103.dkr.ecr.eu-west-1.amazonaws.com/$ARTIFACT_ID:$PRJ_VERSION
