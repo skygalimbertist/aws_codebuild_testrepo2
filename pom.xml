@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.example</groupId>
 	<artifactId>aws_codebuild_demo2</artifactId>
-	<version>1.1</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Message Utility Java Sample App 2</name>
 
@@ -36,6 +36,11 @@
 			<name>demo-domain--codebuild-demo-repo</name>
 			<url>https://demo-domain-156498802103.d.codeartifact.eu-west-1.amazonaws.com/maven/codebuild-demo-repo/</url>
 		</repository>
+		<snapshotRepository>
+			<id>demo-domain--codebuild-demo-repo</id>
+			<name>demo-domain--codebuild-demo-repo</name>
+			<url>https://demo-domain-156498802103.d.codeartifact.eu-west-1.amazonaws.com/maven/codebuild-demo-repo/</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<build>
