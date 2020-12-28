@@ -9,6 +9,11 @@
 	<packaging>jar</packaging>
 	<name>Message Utility Java Sample App 2</name>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.example</groupId>
