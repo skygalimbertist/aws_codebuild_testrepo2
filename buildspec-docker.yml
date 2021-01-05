@@ -18,7 +18,7 @@ phases:
       - echo Maven build started on `date`
       - mvn package
       - echo Docker build started on `date`
-      - docker build -t $ARTIFACT_ID:$PRJ_VERSION.$CODEBUILD_BUILD_NUMBER --build-arg jarName=$ARTIFACT_ID-$PRJ_VERSION.jar .
+      - docker build -t $ARTIFACT_ID:$PRJ_VERSION.$CODEBUILD_BUILD_NUMBER --build-arg jarName=$ARTIFACT_ID-$PRJ_VERSION.jar --build-arg awsRegion=$AWS_REGION --build-arg awsAccountId=$AWS_ACCOUNT_ID .
       - docker tag $ARTIFACT_ID:$PRJ_VERSION.$CODEBUILD_BUILD_NUMBER $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ARTIFACT_ID:$PRJ_VERSION.$CODEBUILD_BUILD_NUMBER      
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ARTIFACT_ID:$PRJ_VERSION.$CODEBUILD_BUILD_NUMBER
